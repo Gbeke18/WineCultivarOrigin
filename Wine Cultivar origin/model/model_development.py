@@ -42,7 +42,14 @@ y_pred = model.predict(X_test_scaled)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 
-with open("wine_cultivar_model.pkl", "wb") as f:
+import os
+
+# Create folder if it doesn't exist
+os.makedirs("model", exist_ok=True)
+
+# Save model, scaler, features
+with open("model/wine_cultivar_model.pkl", "wb") as f:
     pickle.dump((model, scaler, selected_features), f)
+
 
 
