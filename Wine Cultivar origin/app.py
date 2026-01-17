@@ -22,4 +22,19 @@ def index():
 
     if request.method == "POST":
         try:
-            input_data = [float(request.form[f]) for f in features]()_
+            input_data = [float(request.form[f]) for f in features]
+            input_array = np.array(input_data).reshape(1, -1)
+            input_scaled = scaler.transform(input_array)
+            pred = model.predict(input_scaled)[0]
+            prediction = f"Cultivar {pred + 1}"
+        except Exception as e:
+            prediction = f"Error: {str(e)}"
+
+    return render_template(
+        "index.html",
+        features=features,
+        prediction=prediction
+    )
+
+if __name__ == "__main__":
+    app.run()
